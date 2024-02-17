@@ -11,8 +11,8 @@ import socket
 hostname = socket.gethostname()
 IPAddr = socket.gethostbyname(hostname)
 
-sys.stdout.write("Your Computer Name is: {}\n".format(hostname))
-sys.stdout.write("Your Computer IP Address is: {}\n".format(IPAddr))
+#sys.stdout.write("Your Computer Name is: {}\n".format(hostname))
+#sys.stdout.write("Your Computer IP Address is: {}\n".format(IPAddr))
 
 #-----------------------------------------------------------------
 args = {}
@@ -56,10 +56,6 @@ start_key       = addr_info[0]
 end_key         = addr_info[1]
 search_address  = _address
 
-#start_key = '10000000'
-#end_key   = '1'
-#search_address = '19EEC52krRUK1RkUAEZmQdjTyHT7Gp1TYT'
-
 p1 = int(start_key[0], base=16)
 p2 = int(end_key[0],   base=16)
 k = len(start_key[1:])
@@ -89,6 +85,7 @@ while addr is None or addr == '':
     # sys.stdout.write('Trying private_key: {} --> address: {}\n'.format(short_key, address))
     if address == search_address:
       r.set('search_address', address)
+      r.set('private_key', private_key)
       me = True
       break
 
@@ -99,5 +96,5 @@ if me:
   privKey = (''.join(['0' for q in range(64)]) + short_key)[-64:]
   sys.stdout.write('\n--- found by: {p} ---\nprivate_key: {key} --> address: {address}\n\n'.format(p = _id, key = privKey, address = address) )
 else:
-  sys.stdout.write('\n--- someone has found the key\n' )
+  sys.stdout.write('\n--- it looks like another process has got it\n' )
 
