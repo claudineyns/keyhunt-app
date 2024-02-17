@@ -6,6 +6,13 @@ from time import time
 from datetime import datetime
 import redis
 import sys
+import socket
+
+hostname = socket.gethostname()
+IPAddr = socket.gethostbyname(hostname)
+
+sys.stdout.write("Your Computer Name is: {}\n".format(hostname))
+sys.stdout.write("Your Computer IP Address is: {}\n".format(IPAddr))
 
 #-----------------------------------------------------------------
 args = {}
@@ -16,6 +23,8 @@ for q in range(1, len(sys.argv)):
   param = sys.argv[q].split('=')
   args[ param[0][2:] ] = param[1]
 #-----------------------------------------------------------------
+
+sys.stdout.write( '--- args ---\n{}\n'.format(args) )
 
 _redis_h  = args.get('redis_host')
 _redis_p  = args.get('redis_port')
